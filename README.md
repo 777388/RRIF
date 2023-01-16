@@ -1,5 +1,5 @@
 # RRIF
-Recursive remote command injection fuzzer. Inject into a server and have them execute every possible execution and send the requests to a server to be inspected as its running every possible binary execution.
+Recursive remote command injection fuzzer. Inject into a server and have them execute every possible execution in binary and send the requests to a server to be inspected as its running every possible binary execution.
 
 Set up a listener on your end then hit this file remotely on a server
 
