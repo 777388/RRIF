@@ -30,17 +30,22 @@ def recursive_file_call(file_path, server_url):
     send_output_to_server(recursive_file_call(file_path, server_url), server_url)
     with open(file_path, 'rb') as f:
         file_contents = f.read()
-        if file_contents.count('0') == 2:
+        if file_contents.count(b'0') == 2:
             # Delete the 2 0's and append a 1 to the file
-            file_contents = file_contents.replace('0', '', 2)
-            file_contents += '1'
-            with open(file_path, 'a') as f:
+            file_contents = file_contents.replace(b'0', b'', 2)
+            file_contents += b'1'
+            with open(file_path, 'wb') as f:
+                f.write(file_contents)
+            return
+        elif file_contents.count(b'1') >= 1:
+            file_contents = file_contents.replace(b'1', b'00', 1)
+            with open(file_path, 'wb') as f:
                 f.write(file_contents)
             return
 
     # Append a '0' to the file content and call the function recursively
     with open(file_path, 'ab') as f:
-        f.write('0')
+        f.write(b'0')
     recursive_file_call(file_path)
-    
+
 recursive_file_call(sys.argv[1], sys.argv[2])
